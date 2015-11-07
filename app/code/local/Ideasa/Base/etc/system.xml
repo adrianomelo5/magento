@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <pagsegurotab translate="label" module="base">
+            <label>PagSeguro Transparente</label>
+            <sort_order>1000</sort_order>
+        </pagsegurotab>
+    </tabs>
+    
+    <sections>
+        <base>
+            <label><![CDATA[Configurações Gerais]]></label>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>pagsegurotab</tab>
+            <groups>
+                <pagina_sucesso translate="label comment">
+                    <label><![CDATA[Página de sucesso]]> (1.16.2)</label>
+                    <comment>
+                        <![CDATA[
+                            <p>Na página de sucesso, algumas informações não são visualizadas quando um pedido é realizado com usuário não autenticado.</p>
+                            <p>Caso queira exibir as informações do pagamento na tela sucesso ative essa configuração.</p>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <mostrar_conteudo translate="label">
+                            <label><![CDATA[Mostrar conteúdo na página de sucesso]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </mostrar_conteudo>
+                    </fields>
+                </pagina_sucesso>
+                
+                <expiracao_pedido translate="label comment">
+                    <label><![CDATA[Expiração de pedido]]> (1.16.2)</label>
+                    <comment>
+                        <![CDATA[
+                            <p>
+                               Após decorrido o período configurado da criação do pedido, o pedido em status "Pendente" será cancelado automaticamente e todos os produtos deste pedido voltarão ao estoque.<br/>
+                            </p>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <ativa translate="label">
+                            <label><![CDATA[Ativar expiração automática]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Pedidos expirados serão cancelados e seus produtos voltarão ao estoque.]]></comment>
+                        </ativa>
+                        
+                        <!--
+                        <periodo translate="label">
+                            <label><![CDATA[Período para expiração]]></label>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>1</sort_order>
+                            <validate>required-entry</validate>
+                            <depends><active>1</active></depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Tempo decorrido desde a criação do pedido para expiração.]]></comment>
+                        </periodo>
+                        -->
+                        
+                        <data_inicial translate="label">
+                            <label><![CDATA[Expirar pedidos criados após]]></label>
+                            <frontend_type>date</frontend_type>
+                            <frontend_model>base/adminhtml_system_config_form_field_date</frontend_model>
+                            <sort_order>3</sort_order>
+                            <validate>required-entry</validate>
+                            <depends><ativa>1</ativa></depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Serão expirados apenas pedidos criados após esta data.]]></comment>
+                        </data_inicial>
+                        
+                        <controle translate="label">
+                            <label><![CDATA[<strong>Período para expiração</strong>]]>
+                            </label>
+                            <frontend_type>hidden</frontend_type>
+                            <depends><ativa>1</ativa></depends>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Tempo decorrido desde a criação do pedido para expiração.]]></comment>
+                        </controle>
+                        
+                        <periodo_dias translate="label">
+                            <label><![CDATA[Dias para expiração]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>base/system_config_source_dias</source_model>
+                            <validate>required-entry</validate>
+                            <depends><ativa>1</ativa></depends>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </periodo_dias>
+                        <periodo_horas translate="label">
+                            <label><![CDATA[Horas para expiração]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>base/system_config_source_horas</source_model>
+                            <validate>required-entry</validate>
+                            <depends><ativa>1</ativa></depends>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </periodo_horas>
+                        <periodo_minutos translate="label">
+                            <label><![CDATA[Minutos para expiração]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>base/system_config_source_minutos</source_model>
+                            <validate>required-entry</validate>
+                            <depends><ativa>1</ativa></depends>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </periodo_minutos>
+                    </fields>
+                </expiracao_pedido>
+
+                <osc translate="label comment">
+                    <label><![CDATA[OneStepCheckout]]> (1.16.2)</label>
+                    <comment>
+                        <![CDATA[<p>Essa opção possibilita aplicar um estilo mais legível aos campos do Onestepcheckout.</p>
+                        <p>* Válido apenas para clientes que possuem o Onestepcheckout contratado.</p>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <css_active translate="label">
+                            <label><![CDATA[Habilitar estilo no checkout]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </css_active>
+                    </fields>
+                </osc>
+                
+                
+                 <reenvio_boleto translate="label comment">
+                    <label><![CDATA[Aviso automático de boleto por vencer]]> (1.16.2)</label>
+                    <comment>
+                        <![CDATA[
+                            <p>
+                               Permite que seja enviado um e-mail avisando o cliente que um boleto emitido na loja e que ainda não tenha sido pago está próximo da data de vencimento. <span style="color: red">*</span><br/>
+                            </p>
+                            <p>
+                                <span style="color: red">*</span> Configuração não disponível para o módulo Bcash.
+                            </p>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <ativa translate="label">
+                            <label><![CDATA[Ativar envio de e-mail para boletos que estão vencendo]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ativa>
+                        
+                        <numero_dias translate="label">
+                            <label><![CDATA[Número de dias antes do vencimento que deve ser enviado e-mail]]></label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>base/adminhtml_system_config_form_field_date</frontend_model>
+                            <sort_order>3</sort_order>
+                            <validate>required-entry validate-digits</validate>
+                            <depends><ativa>1</ativa></depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </numero_dias>
+                        
+                    </fields>
+                </reenvio_boleto>
+                
+                               
+                <controle_envio_email translate="label comment">
+                    <label><![CDATA[Controle de envio de e-mails]]> (1.16.2)</label>
+                    <comment>
+                        <![CDATA[
+                            <p>
+                               Opções para controlar o fluxo dos e-mails enviados pela loja<br/>
+                            </p>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        
+                        <novo translate="label">
+                            <label><![CDATA[Ativar envio de e-mail para novos pedidos]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </novo>
+                        
+                        <cancelado translate="label">
+                            <label><![CDATA[Ativar envio de e-mail para pedidos com status cancelado]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cancelado>
+                        
+                        <fatura_gerada translate="label">
+                            <label><![CDATA[Ativar envio de e-mail para pedido com fatura gerada.]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fatura_gerada>
+                        
+                    <!-- 
+                        <texto_email_cancelado translate="label">
+                            <frontend_type>hidden</frontend_type>
+                            <depends><ativa>1</ativa></depends>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </texto_email_cancelado>   
+                    -->
+                    
+                    </fields>
+                </controle_envio_email>
+                
+                
+            </groups>
+        </base>
+    </sections>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ideasa_Base>
+            <active>false</active>
+            <codePool>local</codePool>
+            <version>1.16.2</version>
+        </Ideasa_Base>
+    </modules>
+</config>

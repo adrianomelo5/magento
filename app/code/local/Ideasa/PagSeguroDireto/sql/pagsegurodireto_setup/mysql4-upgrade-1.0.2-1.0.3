@@ -1,0 +1,41 @@
+<?php
+
+##ipagare.licenca##
+
+$installer = $this;
+$installer->startSetup();
+
+$conn = $installer->getConnection();
+
+$tabelaPagamentoOld = $installer->getTable('ipagare_pagsegurodireto_pagamento');
+$tabelaSondaOld = $installer->getTable('ipagare_pagsegurodireto_sonda');
+$tabelaErroOld = $installer->getTable('ipagare_pagsegurodireto_erro');
+
+$tabelaPagamento = $installer->getTable('ideasa_pagsegurodireto_pagamento');
+$tabelaSonda = $installer->getTable('ideasa_pagsegurodireto_sonda');
+$tabelaErro = $installer->getTable('ideasa_pagsegurodireto_erro');
+
+if ($conn->isTableExists($tabelaErroOld) && !$conn->isTableExists($tabelaErro)) {
+    $installer->run("ALTER TABLE $tabelaErroOld CHANGE id_ipagare_pagsegurodireto_erro id_ideasa_pagsegurodireto_erro INT(11) NOT NULL AUTO_INCREMENT;");
+    $installer->run("RENAME TABLE $tabelaErroOld TO $tabelaErro;");
+}
+
+if ($conn->isTableExists($tabelaPagamentoOld) && !$conn->isTableExists($tabelaPagamento)) {
+    $installer->run("ALTER TABLE $tabelaPagamentoOld CHANGE id_ipagare_pagsegurodireto_pagamento id_ideasa_pagsegurodireto_pagamento INT(11) NOT NULL AUTO_INCREMENT;");
+    $installer->run("RENAME TABLE $tabelaPagamentoOld TO $tabelaPagamento;");
+}
+
+if ($conn->isTableExists($tabelaSondaOld) && !$conn->isTableExists($tabelaSonda)) {
+    $installer->run("ALTER TABLE $tabelaSondaOld CHANGE id_ipagare_pagsegurodireto_sonda id_ideasa_pagsegurodireto_sonda INT(11) NOT NULL AUTO_INCREMENT;");
+    $installer->run("RENAME TABLE $tabelaSondaOld TO $tabelaSonda;");
+}
+
+$table_core_config_data = $installer->getTable('core_config_data');
+$installer->run("
+    UPDATE $table_core_config_data 
+       SET path = REPLACE(path, 'ipgpagsegurodireto', 'pagsegurodireto') 
+     WHERE path LIKE '%ipgpagsegurodireto%';
+");
+
+$installer->endSetup();
+?>

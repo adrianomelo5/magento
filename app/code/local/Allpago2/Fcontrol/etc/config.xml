@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Allpago Module for Fcontrol
+ *
+ * @title      Magento -> Custom Module for Fcontrol
+ * @category   Fraud Control Gateway
+ * @package    Allpago_Fcontrol
+ * @author     Allpago Team
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2013 Allpago
+ */
+-->
+<config>
+    
+    <modules>
+        <Allpago_Fcontrol>
+            <version>0.1.0</version>
+        </Allpago_Fcontrol>
+    </modules>
+
+    <global>
+
+        <models>
+            <fcontrol>
+                <class>Allpago_Fcontrol_Model</class>
+                <resourceModel>fcontrol_mysql4</resourceModel>
+            </fcontrol>
+            <fcontrol_mysql4>
+                <class>Allpago_Fcontrol_Model_Mysql4</class>
+                <entities>
+                    <api_debug>
+                        <table>fcontrol_api_debug</table>
+                    </api_debug>
+                    <orders>
+                        <table>allpago_fcontrol_orders</table>
+                    </orders>
+                </entities>
+            </fcontrol_mysql4>
+        </models>
+
+        <resources>
+            <allpago_fcontrol_setup>
+                <setup>
+                    <module>Allpago_Fcontrol</module>
+                    <class>Allpago_Fcontrol_Model_Mysql4_Setup</class>
+                </setup>
+            </allpago_fcontrol_setup>
+            <allpago_fcontrol_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </allpago_fcontrol_write>
+            <allpago_fcontrol_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </allpago_fcontrol_read>
+        </resources>
+
+        <blocks>
+            <fcontrol>
+                <class>Allpago_Fcontrol_Block</class>
+            </fcontrol>
+        </blocks>
+
+        <helpers>
+            <fcontrol>
+                <class>Allpago_Fcontrol_Helper</class>
+            </fcontrol>
+        </helpers>
+        
+    </global>
+
+    <frontend>
+        <secure_url>
+            <fcontrol_standard>/fcontrol/standard</fcontrol_standard>
+        </secure_url>
+        <routers>
+            <fcontrol>
+                <use>standard</use>
+                <args>
+                    <module>Allpago_Fcontrol</module>
+                    <frontName>Allpago_Fcontrol</frontName>
+                </args>
+            </fcontrol>
+        </routers>
+    </frontend>
+
+    <default>
+        <allpago>
+            <fcontrol>
+                <active>0</active>
+                <model>Allpago_Fcontrol_Model_Standard</model>
+                <title>Allpago Fcontrol</title>
+                <ws_url>https://secure.fcontrol.com.br/WSFControl2/WSFControl2.asmx?wsdl</ws_url>
+                <ws_login>Digite seu login</ws_login>
+                <ws_pass>Digite sua senha</ws_pass>
+                <campo_documento>taxvat,cpf,cnpj,customer_taxvat,customer_cpf,customer_cnpj</campo_documento>
+                <qtd_tentativas>3</qtd_tentativas>
+                <qtd_analises>10</qtd_analises>
+                <country>BRA</country>
+            </fcontrol>
+        </allpago>
+    </default>
+    
+    <crontab>
+        <jobs>
+            <allpago_fcontrol_enfileirar>
+                <schedule>
+                    <cron_expr>*/3 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>fcontrol/standard::enfileirar</model>
+                </run>
+            </allpago_fcontrol_enfileirar>
+            <allpago_fcontrol_capturar>
+                <schedule>
+                    <cron_expr>*/3 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>fcontrol/standard::capturar</model>
+                </run>
+            </allpago_fcontrol_capturar>
+        </jobs>
+    </crontab>
+</config>

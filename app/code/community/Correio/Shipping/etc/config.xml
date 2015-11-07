@@ -1,0 +1,56 @@
+<?xml version="1.0"?>  
+<config>  
+    <modules>
+        <Correio_Shipping>
+            <version>0.1.0</version>
+            <depends>
+                <Mage_Shipping />
+            </depends>
+        </Correio_Shipping>
+    </modules>
+    <global>
+        <models>
+            <tmshipping>
+                <class>Correio_Shipping</class>
+            </tmshipping>
+        </models>
+        <resources>
+            <tmshipping_setup>
+                <setup>
+                    <module>Correio_Shipping</module>
+                </setup>
+                <connection>
+                    <use>directory_setup</use>
+                </connection>
+            </tmshipping_setup>
+            <tmshipping_read>
+                <connection>
+                    <use>local_read</use>
+                </connection>
+            </tmshipping_read>
+        </resources>
+        <sales>
+            <shipping>
+                <carriers>
+                    <correiopost>
+                        <class>Correio_Shipping_Model_Carrier_CorreioPost</class>
+                    </correiopost>
+                </carriers>
+            </shipping>
+        </sales>
+    </global>
+
+    <default>
+        <carriers>
+            <correiopost>
+                <active>1</active>
+                <model>Correio_Shipping_Model_Carrier_CorreioPost</model>
+                <title>Correios</title>
+                <name>Correios</name>
+                <handling_fee>0</handling_fee>
+                <showmethod>0</showmethod>
+                <free_method>sedex</free_method>
+            </correiopost>
+        </carriers>
+    </default>
+</config>  

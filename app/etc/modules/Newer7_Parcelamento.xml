@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Newer7_Parcelamento>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Newer7_Parcelamento>
+	</modules>
+</config>

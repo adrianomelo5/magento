@@ -1,0 +1,19 @@
+<?xml version="1.0"?>  
+<config>  
+    <modules>
+        <Noix_HelloWorld>
+            <version>0.1.0</version>
+        </Noix_HelloWorld>
+    </modules>
+    <frontend>
+        <routers>
+            <helloworld>
+                <use>standard</use>
+                <args>
+                    <module>Noix_HelloWorld</module>
+                    <frontName>helloworld</frontName>
+                </args>
+            </helloworld>
+        </routers>
+    </frontend>
+</config>  

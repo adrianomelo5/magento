@@ -1,0 +1,9 @@
+<?xml version="1.0"?>  
+<config>  
+    <modules>
+        <Correio_Shipping>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Correio_Shipping>
+    </modules>
+</config>  

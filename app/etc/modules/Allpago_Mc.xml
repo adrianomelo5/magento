@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Allpago - Gwap. 
+ *
+ * @title      Magento Allpago Mc
+ * @category   Payment
+ * @package    Allpago_Mc
+ * @author     Allpago Development Team
+ * @copyright  Copyright (c) 2013 Allpago
+ */
+ -->
+<config>
+    <modules>
+        <Allpago_Mc>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Payment />
+            </depends>
+        </Allpago_Mc>
+    </modules>
+</config>

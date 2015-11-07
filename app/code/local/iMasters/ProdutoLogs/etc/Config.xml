@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- O nó raiz para a configuração do módulo Magento -->
+<config>
+    <!-- Nó do módulo contém informações básicas sobre cada módulo Magento -->
+    <modules>
+        <!--
+            Este nó deve corresponder exatamente o nome do namespace e módulos,
+            separando as pastas com underline.
+        -->
+        <iMasters_ProdutoLogs>
+            <!-- A versão do módulo. Estamos iniciando na versão 0.0.1 -->
+            <version>0.0.1</version>
+        </iMasters_ProdutoLogs>
+    </modules>
+    <!-- Configuramos o módulo para ter comportamento no escopo global do sistema -->
+    <global>
+        <!-- Definindo os models -->
+        <models>
+            <!--
+                Identificador único no nó de models.
+                Por convenção, colocamos o nome do módulo em minúsculo.
+            -->
+            <iMasters_produtologs>
+                <!--
+                    O caminho para o nosso diretório de modelos,
+                    com separadores de diretório substituído por underlines
+                -->
+                <class>iMasters_ProdutoLogs_Model</class>
+            </iMasters_produtologs>
+        </models>
+
+     <!-- Definindo o evento observer -->
+        <events>
+            <!-- O código do evento que queremos observar -->
+            <catalog_product_save_after>
+                <!-- Definição de um observador para este evento -->
+                <observers>
+                    <!--
+                        Identificador único no nó catalog_product_save_after.
+                        Por convenção, colocamos o nome do módulo em minúsculo.
+                    -->
+                    <iMasters_produtologs>
+                        <!-- O modelo a ser instanciado -->
+                        <class>iMasters_produtologs/observer</class>
+                        <!-- O método do modelo acima, para ser chamado -->
+                        <method>logUpdate</method>
+                        <!-- Geralmente usam o tipo singleton para os observadores -->
+                        <type>singleton</type>
+                    </iMasters_produtologs>
+                </observers>
+            </catalog_product_save_after>
+        </events>
+    </global>
+</config>

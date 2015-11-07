@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Allpago - Gwap. 
+ *
+ * @title      Magento Allpago Gwap
+ * @category   Payment
+ * @package    Allpago_Gwap
+ * @author     Allpago Development Team
+ * @copyright  Copyright (c) 2013 Allpago
+ */
+ -->
+<config>
+    <acl>
+	<resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <allpago>
+                                        <title>Allpago</title>
+                                    </allpago>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+     

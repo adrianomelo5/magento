@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Allpago Module for Fcontrol
+ *
+ * @title      Magento -> Custom Module for Fcontrol
+ * @category   Fraud Control Gateway
+ * @package    Allpago_Fcontrol
+ * @author     Allpago Team
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2013 Allpago
+ */
+-->
+<config>
+    <sections>
+        <allpago>
+            <groups>
+                <fcontrol translate="label">
+                    <label>Fcontrol</label>
+                    <sort_order>19</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Ativo</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Define se o serviço está ativo ou não.</comment>
+                        </active>
+
+                        <ws_url translate="label">
+                            <label>URL do WebService</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Endereço do WSDL do WebService utilizado.</comment>
+                        </ws_url>
+
+                        <ws_login translate="label">
+                            <label>Login no WebService</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Login fornecido pela Fcontrol para acesso ao WebService.</comment>
+                        </ws_login>
+
+                        <ws_pass translate="label">
+                            <label>Senha no WebService</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Senha fornecida pela Fcontrol para acesso ao WebService.</comment>
+                        </ws_pass>
+
+                        <campo_documento translate="label">
+                            <label>Campos para documento</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Campos do cadastro do cliente, em ordem de prioridade, separados por vírgula. Ex: "taxvat,cpf,cnpj".]]>
+                            </comment>
+                        </campo_documento>
+
+                        <qtd_tentativas translate="label">
+                            <label>Quantidade de Tentativas</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>350</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Quantidade máxima de tentativas de enfileiramento antes de desistir. Deve ser >= 3.</comment>
+                        </qtd_tentativas>
+
+                        <qtd_analises translate="label">
+                            <label>Quantidade de Análises</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>375</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Quantidade máxima de análises a serem tratadas em cada captura.</comment>
+                        </qtd_analises>
+
+                        <vlr_minimo translate="label">
+                            <label>Valor Mínimo</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>380</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Somente enviar pedidos para F-Control com valor acima do mínimo definido.</comment>
+                        </vlr_minimo>
+
+                        <country translate="label">
+                            <label>País padrão</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[Código de 3 letras do país origem dos pedidos. Exemplos em: http://www.worldatlas.com/aatlas/ctycodes.htm]]>
+                            </comment>
+                        </country>
+
+                    </fields>
+                </fcontrol>
+                
+            </groups>
+        </allpago>
+    </sections>
+</config>

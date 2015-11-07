@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <pagsegurodireto>
+            <label>PagSeguro Transparente</label>
+            <sort_order>7</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>pagsegurotab</tab>
+            <groups>
+                <licenca_expira>
+                    <frontend_model>base/adminhtml_system_config_fieldset_licenca</frontend_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </licenca_expira>
+                <geral translate="label">
+                    <label><![CDATA[Configurações Gerais]]> (1.1.1)
+                    </label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <ajuda translate="label">
+                            <frontend_model>base/adminhtml_system_config_form_field_needHelp</frontend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ajuda>
+                        <active translate="label">
+                            <label>Ativo</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/pagsegurodireto/active</config_path>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[]]>
+                            </comment>
+                        </active>
+                        <title translate="label">
+                            <label>Titulo</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/pagsegurodireto/title</config_path>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </title>
+                        <convenio translate="label">
+                            <label><![CDATA[<strong>CONVÊNIO</strong>]]>
+                            </label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </convenio>
+                        <email translate="label">
+                            <label>Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[E-mail do lojista cadastrado no PagSeguro]]>
+                            </comment>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </email>
+                        <token translate="label">
+                            <label>Token</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Logado no Painel de Controle do PagSeguro, acesse o menu "Integrações" > "Token de segurança".]]>
+                            </comment>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </token>
+                        <controle translate="label">
+                            <label><![CDATA[<strong>OPÇÕES DE CONTROLE</strong>]]>
+                            </label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </controle>
+                        <invoice translate="label">
+                            <label><![CDATA[Gerar fatura ao confirmar pagamento]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Para gerar a fatura do pedido selecione "Sim". Após a fatura ser gerada é possivel cancelar o pagamento no PagSeguro mas não é possível cancelar o pedido na sua loja Magento..]]>
+                            </comment>
+                        </invoice>
+                        <cancel_order translate="label">
+                            <label><![CDATA[Cancelar pedido em caso de falha de pagamento]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Para cancelar o pedido selecione "Sim". Após o cancelamento o produto voltará para o estoque.]]>
+                            </comment>
+                        </cancel_order>
+                        <custom_css translate="label">
+                            <label>Habilitar arquivo "custom.css"</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[O arquivo custom.css preserva as modificações de layout que você têm no PagSeguro. <br />
+                                Este deverá ser criado por você e inserido na pasta "/skin/frontend/base/default/pagsegurodireto/css"]]>
+                            </comment>
+                        </custom_css>
+                    </fields>
+                </geral>
+                
+                <cartao translate="label">
+                    <label><![CDATA[Cartão de Crédito]]></label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <active translate="label">
+                            <label>Ativo</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[]]>
+                            </comment>
+                        </active>
+                        <codigos translate="label">
+                            <label>Bandeiras ativas</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>pagsegurodireto/system_config_source_allCardMethods</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </codigos>
+                        <valor_minimo translate="label">
+                            <label><![CDATA[Valor mínimo do pedido (R$)]]>
+                            </label>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-length maximum-length-15 moeda</validate>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Este meio de pagamento só estará disponível para 
+                            pedidos com valor igual ou superior ao definido neste campo. <br/>Ex: 1,00]]>
+                            </comment>
+                        </valor_minimo>
+                        <valor_maximo translate="label">
+                            <label><![CDATA[Valor máximo do pedido (R$)]]>
+                            </label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-length maximum-length-15 moeda</validate>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Este meio de pagamento só estará disponível 
+                            para pedidos com valor igual ou inferior ao definido neste campo. 
+                            Caso não seja informado, nenhum limite será aplicado. <br/>Ex: 1,00]]>
+                            </comment>
+                        </valor_maximo>
+                        <desconto_avista translate="label">
+                            <label>Desconto à vista (%)</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-length maximum-length-5 moeda</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Desconto percentual que será aplicado apenas na forma de pagamento à vista. Caso não seja informado, nenhum desconto será aplicado. Valor máximo: 99,99 <br/> Ex: 10,00.<br/><br/><br/><br/>]]>
+                            </comment>
+                        </desconto_avista>
+                    </fields>
+                </cartao>
+                
+                <debito translate="label">
+                    <label><![CDATA[Débito Bancário]]>
+                    </label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <active translate="label">
+                            <label>Ativo</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <codigos translate="label">
+                            <label>Bancos aceitos</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>pagsegurodireto/system_config_source_allDebitMethods</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </codigos>
+                        <valor_minimo translate="label">
+                            <label><![CDATA[Valor mínimo do pedido (R$)]]>
+                            </label>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-length maximum-length-15 moeda</validate>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Este meio de pagamento só estará disponível para 
+                            pedidos com valor igual ou superior ao definido neste campo. <br/>Ex: 1,00]]>
+                            </comment>
+                        </valor_minimo>
+                        <valor_maximo translate="label">
+                            <label><![CDATA[Valor máximo do pedido (R$)]]>
+                            </label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-length maximum-length-15 moeda</validate>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Este meio de pagamento só estará disponível 
+                            para pedidos com valor igual ou inferior ao definido neste campo. 
+                            Caso não seja informado, nenhum limite será aplicado. <br/>Ex: 1,00]]>
+                            </comment>
+                        </valor_maximo>
+                        <desconto_avista translate="label">
+                            <label>Desconto à vista (%)</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-length maximum-length-5 moeda</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Desconto percentual que será aplicado apenas na forma de pagamento à vista. Caso não seja informado, nenhum desconto será aplicado. Valor máximo: 99,99 <br/> Ex: 10,00.<br/><br/><br/><br/>]]>
+                            </comment>
+                        </desconto_avista>
+                    </fields>
+                </debito>
+                
+                <boleto translate="label">
+                    <label><![CDATA[Boleto Bancário]]>
+                    </label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <active translate="label">
+                            <label>Ativo</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <codigos translate="label">
+                            <label>Boletos aceitos</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>pagsegurodireto/system_config_source_allBoletoMethods</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </codigos>
+                        <valor_minimo translate="label">
+                            <label><![CDATA[Valor mínimo do pedido (R$)]]>
+                            </label>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-length maximum-length-15 moeda</validate>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Este meio de pagamento só estará disponível para 
+                            pedidos com valor igual ou superior ao definido neste campo. <br/>Ex: 1,00]]>
+                            </comment>
+                        </valor_minimo>
+                        <valor_maximo translate="label">
+                            <label><![CDATA[Valor máximo do pedido (R$)]]>
+                            </label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-length maximum-length-15 moeda</validate>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Este meio de pagamento só estará disponível 
+                            para pedidos com valor igual ou inferior ao definido neste campo. 
+                            Caso não seja informado, nenhum limite será aplicado. <br/>Ex: 1,00]]>
+                            </comment>
+                        </valor_maximo>
+                        <desconto_avista translate="label">
+                            <label>Desconto à vista (%)</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-length maximum-length-5 moeda</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                            <comment><![CDATA[Desconto percentual que será aplicado apenas na forma de pagamento à vista. Caso não seja informado, nenhum desconto será aplicado. Valor máximo: 99,99 <br/> Ex: 10,00.<br/><br/><br/><br/>]]>
+                            </comment>
+                        </desconto_avista>
+                    </fields>
+                </boleto>
+            </groups>
+        </pagsegurodireto>
+    </sections>
+</config>

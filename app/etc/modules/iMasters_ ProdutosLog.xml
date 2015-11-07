@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <iMasters_ProdutoLogs>
+            <!-- Dizemos se o módulo está ativo: true or false -->
+            <active>true</active>
+            <!-- Qual local o módulo está criado. -->
+            <codePool>local</codePool>
+        </iMasters_ProdutoLogs>
+    </modules>
+</config>

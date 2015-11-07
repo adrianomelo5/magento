@@ -1,0 +1,9 @@
+<?xml version="1.0"?>  
+<config>  
+    <modules>
+        <Noix_HelloWorld>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Noix_HelloWorld>
+    </modules>
+</config> 

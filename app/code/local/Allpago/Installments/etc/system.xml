@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+
+<config>
+    <sections>
+        <allpago translate="label" module="installments">
+            <label>Allpago</label>
+            <tab>sales</tab>
+            <class>allpago-section</class>
+            <header_css>allpago-header</header_css>
+            <frontend_type>text</frontend_type>
+            <sort_order>375</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>  
+                <installments translate="label">
+                    <label>Configurações de Parcelamento</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>
+                        <![CDATA[
+                        <div style="padding:10px;background-color:#fff;border:1px solid #ddd;margin-bottom:7px;">
+                        O funcionamento destas regras está condicionado a implementação em template do uso destas informações.
+                        </div>
+                        ]]>
+                    </comment>
+                    <fields>
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>installments/adminhtml_installments_system_config_form_field_active</frontend_model>
+                            <source_model>installments/source_active</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <parcelas translate="label">
+                            <label>Parcelas</label>
+                            <frontend_model>installments/adminhtml_installments_system_config_form_field_addinstallmentrange</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                            Caso um valor caia em 2 regras, a regra com número menor de parcelas será levada em conta.<br />
+                            O símbolo "*" à esquerda significa "qualquer valor menor que o da direita", ja quando o mesmo estiver à direita significa "qualquer valor maior que o da esquerda".<br />
+                            Os valores a esquerda devem ser menores que os a direita.<br />
+                            A faixa de valor das linhas inferiores devem ser maiores que a faixa de valor da linha superior.<br />
+                            ]]></comment>
+                        </parcelas>
+                        <n_max_parcelas translate="label">
+                            <label>Numero máximo de parcelas</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Para métodos que aceitam este parâmetro. Ex: "10".]]>
+                            </comment>
+                        </n_max_parcelas>
+                        <parcela_minima translate="label">
+                            <label>Valor mínimo de parcela</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Ex: "15.00"]]></comment>
+                        </parcela_minima>
+                        <taxa_juros translate="label">
+                            <label>Taxa de juros</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Os juros devem ser acordados com a prestadora de serviço de pagamento ou como se aplicar. Ex: "1.99".]]>
+                            </comment>
+                        </taxa_juros>
+                        <n_parcelas_s_juros translate="label">
+                            <label>Número de Parcelas sem Juros</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Para métodos que aceitam este parâmetro. Ex: "10".]]>
+                            </comment>
+                        </n_parcelas_s_juros>
+                        <mensagem_padrao_semjuros translate="label">
+                            <label>Mensagem padrão para pagamento sem juros</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[A ser adicionado no final para informar o cliente]]></comment>
+                        </mensagem_padrao_semjuros>
+                        
+                        <mensagem_padrao_comjuros translate="label">
+                            <label>Mensagem padrão para pagamento com juros</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[A ser adicionado no final para informar o cliente]]></comment>
+                        </mensagem_padrao_comjuros>
+                        
+                        <active_installment_type translate="label">
+                            <label>Exibir maior parcela</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>installments/source_maxinstallmenttypes</source_model>
+                            <sort_order>107</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Definir qual tipo de parcela será exibida por padrão na descrição do produto.]]></comment>
+                        </active_installment_type>   
+                        
+                        <active_category translate="label">
+                            <label>Habilitar para lista de produtos</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>installments/source_productlist</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Habilita a opção de visualizar o parcelamento na listagem de produtos]]></comment>
+                        </active_category>
+                        <active_product translate="label">
+                            <label>Habilitar para detalhe de produtos</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>installments/source_productview</source_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Habilita a opção de visualizar o parcelamento no detalhe de produtos]]></comment>
+                        </active_product>
+                        <active_general translate="label">
+                            <label>Habilitar exibição geral</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>installments/source_productlist</source_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Habilita exibição automática do parcelamento para todas listas e detalhes de produtos.    ]]></comment>
+                        </active_general>
+                        <active_form translate="label">
+                            <label>Habilitar exibição no checkout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Habilita exibição automática do parcelamento no checkout]]></comment>
+                        </active_form>
+                        <form_type translate="label">
+                            <label>Modo de exibição no checkout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>installments/source_productform</source_model>
+                            <sort_order>135</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Define modo de visualização do parcelamento no checkout]]></comment>
+                        </form_type>
+                    </fields>
+                </installments>
+            </groups>
+        </allpago>
+    </sections>
+</config>

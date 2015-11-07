@@ -1,0 +1,1 @@
+<?phpclass Allpago_Gwap_Block_Checkout_Failure extends Mage_Checkout_Block_Onepage_Success {    private $_order;    public function getOrder()    {        if(!$this->_order)        {            $this->_order = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId());        }        return $this->_order;    }   }

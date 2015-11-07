@@ -1,0 +1,579 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Allpago - Gwap. 
+ *
+ * @title      Magento Allpago Gwap
+ * @category   Payment
+ * @package    Allpago_Gwap
+ * @author     Allpago Development Team
+ * @copyright  Copyright (c) 2013 Allpago
+ */
+ -->
+<config>
+    <sections>
+        <allpago translate="label" >
+            <label>Allpago</label>
+            <tab>sales</tab>
+            <class>allpago-section</class>
+            <header_css>allpago-header</header_css>
+            <frontend_type>text</frontend_type>
+            <sort_order>375</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                
+                <auth translate="label">
+                    <label>Geral</label>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment>
+                        <![CDATA[
+                            <div>
+                                <br />
+                                <strong style="font-size:14px">Allpago versão 2.2.14</strong><br /><br />
+                                <a href="http://www.allpago.com.br/" target="_blank">www.allpago.com.br</a><br /><br />
+                                <hr /><br /><br />
+                            </div>
+                        ]]>
+                    </comment>                      
+                    <fields>
+                        <security_sender translate="label">
+                            <label>Security Sender</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_auth/security_sender</config_path>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </security_sender>			      	      	
+                        <user_login translate="label">
+                            <label>User Login</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_auth/user_login</config_path>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </user_login>							
+                        <user_pwd translate="label">
+                            <label>User Pwd</label>
+                            <frontend_type>obscure</frontend_type>
+                            <config_path>payment/gwap_auth/user_pwd</config_path>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </user_pwd>	
+                        <ambiente translate="label">
+                            <label>Ambiente</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gwap/source_environment</source_model>
+                            <config_path>payment/gwap_auth/ambiente</config_path>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </ambiente>
+                    </fields>
+                </auth>
+                
+                <gwap_cc translate="label">
+                    <label>Cartão de Crédito</label>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>                    
+                    <fields>
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <frontend_type>select</frontend_type>
+                            <config_path>payment/gwap_cc/active</config_path>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Título</label>
+                            <config_path>payment/gwap_cc/title</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <autorizacao translate="label">
+                            <label>Tipo de Autorização</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gwap/source_auth</source_model>
+                            <config_path>payment/gwap_cc/tipo_autorizacao</config_path>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                        Define se a operação de autorização é executada em lote pela cron do magento ou instantâneamente (no ato da compra).
+                                     ]]>
+                            </comment>
+                        </autorizacao>                        
+                        <acao translate="label">
+                            <label>Ação de Pagamento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gwap/source_pagto</source_model>
+                            <config_path>payment/gwap_cc/acao</config_path>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment> <![CDATA[
+                                        Define se a operação de captura é executada com pré autorização ou captura direta.
+                                ]]>
+                            </comment>
+                        </acao>
+                        <captura translate="label">
+                            <label>Captura Manual</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/gwap_cc/captura</config_path>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment> <![CDATA[
+                                        Define se a operação de captura é executada de forma automatica (cronjob) ou manual (exigindo a captura online pelo admin).
+                                ]]>
+                            </comment>
+                        </captura>
+                        <nautorizado translate="label">
+                            <label>Mensagem para pagamentos não autorizados</label>
+                            <frontend_type>textarea</frontend_type>
+                            <config_path>payment/gwap_cc/nautorizado</config_path>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment> <![CDATA[
+                                        Essa mensagem será exibida após o envio do pedido em caso de falha na autorização do pagamento.
+                                ]]>
+                            </comment>
+                        </nautorizado>  
+                        <cancelamento translate="label">
+                            <label>Cancelar pedido não autorizado</label>
+                            <frontend_type>select</frontend_type>
+                            <config_path>payment/gwap_cc/cancelamento</config_path>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cancelamento>  
+                        
+                        <template_cancelamento translate="label">
+                            <label>Template do e-mail de cancelamento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template_cancelamento>                                                                                                                
+                        
+                        <transaction_channel_firstdata translate="label">
+                            <label>Transaction Channel FirstData</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_cc/transaction_channel_firstdata</config_path>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </transaction_channel_firstdata>	
+                        <cctypes_firstdata translate="label">
+                            <label>Métodos de pagamento FirstData</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <!--frontend_model>gwap/adminhtml_gwap_system_config_form_field_cctype_firstdata</frontend_model-->
+                            <config_path>payment/gwap_cc/cctypes_firstdata</config_path>
+                            <source_model>gwap/source_cctypes_firstdata</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cctypes_firstdata>                        
+                        
+                        <transaction_channel_redecard translate="label">
+                            <label>Transaction Channel Rede Card</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_cc/transaction_channel_redecard</config_path>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </transaction_channel_redecard>                        
+                        <cctypes_rcard translate="label">
+                            <label>Métodos de pagamento para Redecard</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <frontend_model>gwap/adminhtml_gwap_system_config_form_field_cctype_redecard</frontend_model>
+                            <config_path>payment/gwap_cc/cctypes_rcard</config_path>
+                            <source_model>gwap/source_cctypes_redecard</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cctypes_rcard>                        
+                        
+                        <transaction_channel_cielo translate="label">
+                            <label>Transaction Channel Cielo</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_cc/transaction_channel_cielo</config_path>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </transaction_channel_cielo>	
+                        <cctypes_cielo translate="label">
+                            <label>Métodos de pagamento Cielo</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <frontend_model>gwap/adminhtml_gwap_system_config_form_field_cctype_cielo</frontend_model>
+                            <config_path>payment/gwap_cc/cctypes_cielo</config_path>
+                            <source_model>gwap/source_cctypes_cielo</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cctypes_cielo>
+                        
+                        <allowspecific translate="label">
+                            <label>Tipos de países permitidos</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>55</sort_order>
+                            <config_path>payment/gwap_cc/allowspecific</config_path>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </allowspecific>
+
+                        <specificcountry translate="label">
+                            <label>Permitir pagamento de países específicos</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <config_path>payment/gwap_cc/specificcountry</config_path>
+                            <sort_order>60</sort_order>Verification
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </specificcountry>
+                        
+                        <campo_documento translate="label">
+                            <label>Campos para cpf</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Campos do cadastro do cliente, em ordem de prioridade, separados por vírgula. Ex: "taxvat,cpf,cnpj".]]>
+                            </comment>
+                        </campo_documento>
+
+                        <sort_order translate="label">
+                            <label>Ordem de sorteio</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_cc/sort_order</config_path>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>                            
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </gwap_cc>
+                
+                <gwap_2cc translate="label">
+                    <label>Pagamento com 2 Cartões de Crédito</label>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>                    
+                    <fields>
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <frontend_type>select</frontend_type>
+                            <config_path>payment/gwap_2cc/active</config_path>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Título</label>
+                            <config_path>payment/gwap_2cc/title</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title> 
+                        <informacao translate="label">
+                            <label>Texto no Checkout</label>
+                            <frontend_type>textarea</frontend_type>
+                            <config_path>payment/gwap_2cc/informacao</config_path>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Texto informativo exibido no checkout. 
+                                ]]>
+                            </comment>
+                        </informacao>                                             
+                        <sort_order translate="label">
+                            <label>Ordem de sorteio</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_2cc/sort_order</config_path>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>                            
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </gwap_2cc>                
+                
+                <gwap_oneclick translate="label">
+                    <label>One-click</label>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>                    
+                    <fields>
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <frontend_type>select</frontend_type>
+                            <config_path>payment/gwap_oneclick/active</config_path>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Serão utilizados os dados gravados no gateway de pagamento, conforme as informações da última compra do cliente, feita com cartão de crédito na loja.
+                                ]]>
+                            </comment>                            
+                        </active>
+                        <title translate="label">
+                            <label>Título</label>
+                            <config_path>payment/gwap_oneclick/title</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title> 
+                        <informacao translate="label">
+                            <label>Texto no Checkout</label>
+                            <frontend_type>textarea</frontend_type>
+                            <config_path>payment/gwap_oneclick/informacao</config_path>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Texto informativo exibido no checkout. 
+                                ]]>
+                            </comment>
+                        </informacao>                                             
+                        <sort_order translate="label">
+                            <label>Ordem de sorteio</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_oneclick/sort_order</config_path>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>                            
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </gwap_oneclick>    
+                            
+                <gwap_boleto translate="label">
+                    <label>Boleto Itaú / Bradesco</label>
+                    <sort_order>8</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    
+                    <fields>
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <config_path>payment/gwap_boleto/active</config_path>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Título</label>
+                            <config_path>payment/gwap_boleto/title</config_path>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </title>
+                        <types translate="label">
+                            <label>Boletos Diposníveis</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <config_path>payment/gwap_boleto/types</config_path>
+                            <source_model>gwap/source_boleto</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </types>
+                        <transaction_channel_itau translate="label">
+                            <label>Transaction Channel Itaú</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_boleto/transaction_channel_itau</config_path>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </transaction_channel_itau>				
+                        <transaction_channel_bradesco translate="label">
+                            <label>Transaction Channel Bradesco</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_boleto/transaction_channel_bradesco</config_path>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </transaction_channel_bradesco>	
+                        
+                        <vencimento translate="label">
+                            <label>Vencimento</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_boleto/vencimento</config_path>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Define dias para o vencimento. Para banco BRADESCO será considerado no máximo 3 dias.
+                                ]]>
+                            </comment>
+                        </vencimento>	
+                        <cancelamento translate="label">
+                            <label>Cancelamento</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_boleto/cancelamento</config_path>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Define número de dias para o cancelamento do boleto no sistema. Considerar o vencimento + dias para confirmação do pagamento pelo banco.
+                                ]]>
+                            </comment>
+                        </cancelamento>	
+                        <desconto translate="label">
+                            <label>% Desconto</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_boleto/desconto</config_path>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Porcentagem de desconto no boleto, exemplo: "10.00". Deixe em branco para remover o desconto.
+                                ]]>
+                            </comment>
+                        </desconto>  
+                        <texto_desconto translate="label">
+                            <label>Descrição do desconto</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_boleto/texto_desconto</config_path>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Descrição que será exibida no sumário/revisão do pedido no checkout.
+                                ]]>
+                            </comment>
+                        </texto_desconto>                                              
+                        <campo_documento translate="label">
+                            <label>Campos para cpf</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Campos do cadastro do cliente, em ordem de prioridade, separados por vírgula. Ex: "taxvat,cpf,cnpj".]]>
+                            </comment>
+                        </campo_documento>                      
+                        <instrucoes translate="label">
+                            <label>Instruções</label>
+                            <frontend_type>textarea</frontend_type>
+                            <config_path>payment/gwap_boleto/instrucoes</config_path>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                        Apenas para banco BRADESCO. Define informações ao usuário no boleto 
+                                ]]>
+                            </comment>
+                        </instrucoes>	                        
+                        <cancelar_expirado translate="label">
+                            <label>Cancelar pedidos expirados</label>
+                            <frontend_type>select</frontend_type>
+                            <config_path>payment/gwap_boleto/cancelar_expirado</config_path>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Cancela os pedidos após o período de "Cancelamento" dos boletos</comment>
+                        </cancelar_expirado>    
+                        
+                        <debug translate="label">
+                            <label>Ativar Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <config_path>payment/gwap_boleto/debug</config_path>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Ativar log de envio do xml para o gateway.</comment>
+                        </debug> 
+                                                                    
+                        <sort_order translate="label">
+                            <label>Ordem de sorteio</label>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/gwap_boleto/sort_order</config_path>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>                            
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                    </fields>
+                </gwap_boleto>
+                
+            </groups>
+        </allpago>
+    </sections>
+</config>

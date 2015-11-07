@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ideasa_Base>
+            <version>1.16.2</version>
+        </Ideasa_Base>
+    </modules>
+    
+    <global>
+        <models>
+            <base>
+                <class>Ideasa_Base_Model</class>
+            </base>
+        </models>
+        
+        <blocks>
+            <base>
+                <class>Ideasa_Base_Block</class>
+            </base>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals>Ideasa_Base_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+                    <sales_order_invoice_totals>Ideasa_Base_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+                </rewrite>
+            </adminhtml>
+            <sales>
+                <rewrite>
+                    <order_totals>Ideasa_Base_Block_Sales_Order_Totals</order_totals>
+                    <order_invoice_totals>Ideasa_Base_Block_Sales_Order_Invoice_Totals</order_invoice_totals>
+                </rewrite>
+            </sales>
+        </blocks>
+        
+        <helpers>
+            <base>
+                <class>Ideasa_Base_Helper</class>
+            </base>
+        </helpers>
+        
+        <resources>
+            <base_setup>
+                <setup>
+                    <module>Ideasa_Base</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </base_setup>
+        </resources>
+        
+        <events>
+            <base_log_user_action>
+                <observers>
+                    <base_log_user_action>
+                        <class>base/observer</class>
+                        <method>logUserAction</method>
+                    </base_log_user_action>
+                </observers>
+            </base_log_user_action>
+        </events>
+        
+        <template>
+            <email>
+                <ideasa_boleto_sales_email_order_template translate="label" module="sales">
+                    <label>Boleto a vencer</label>
+                    <file>sales/ideasa_boleto.html</file>
+                    <type>html</type>
+                </ideasa_boleto_sales_email_order_template>
+            </email>
+        </template>
+    </global>
+    
+    <admin>
+        <routers>
+            <base>
+                <use>admin</use>
+                <args>
+                    <module>Ideasa_Base</module>
+                    <frontName>base</frontName>
+                </args>
+            </base>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <base module='base'>
+                    <file>ideasa/base.xml</file>
+                </base>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <frontend>
+        <secure_url>
+            <idecheckoutvm>/base/</idecheckoutvm>
+        </secure_url>
+        <routers>
+            <idecheckoutvm>
+                <use>standard</use>
+                <args>
+                    <module>Ideasa_Base</module>
+                    <frontName>base</frontName>
+                </args>
+            </idecheckoutvm>
+        </routers>
+        <layout>
+            <updates>
+                <base module='base'>
+                    <file>ideasa/base.xml</file>
+                </base>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Ideasa_Base>
+                    <files>
+                        <default>Ideasa_Base.csv</default>
+                    </files>
+                </Ideasa_Base>
+            </modules>
+        </translate>
+    </frontend>
+    
+    <crontab>
+        <jobs>
+            <ideasa_base_expirapedido>
+                <schedule>
+                    <cron_expr>*/30 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>base/observer::expirapedido</model>
+                </run>
+            </ideasa_base_expirapedido>
+            <ideasa_base_expiraboleto>
+                <schedule>
+                    <cron_expr>10 1 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>base/observer::expiraBoletos</model>
+                </run>
+            </ideasa_base_expiraboleto>
+            <ideasa_base_reenvioemail>
+                <schedule>
+                    <cron_expr>10 2 * * *</cron_expr> 
+                </schedule>
+                <run>
+                    <model>base/observer::enviaEmailBoletosAvencer</model>
+                </run>
+            </ideasa_base_reenvioemail>
+            <ideasa_base_licenseexpcheck>
+                <schedule>
+                    <cron_expr>10 3 * * *</cron_expr> 
+                </schedule>
+                <run>
+                    <model>base/observer::licenseExpCheck</model>
+                </run>
+            </ideasa_base_licenseexpcheck>
+        </jobs>
+    </crontab> 
+    
+    <default>
+        <base>
+            <pagina_sucesso>
+                <mostrar_conteudo>1</mostrar_conteudo>
+            </pagina_sucesso>
+            <osc>
+                <css_active>1</css_active>
+            </osc>
+            <reenvio_boleto>
+                <numero_dias>2</numero_dias>
+            </reenvio_boleto>
+            <controle_envio_email>
+                <novo>1</novo>
+                <cancelado>1</cancelado>
+                <fatura_gerada>1</fatura_gerada>
+                <texto_email_cancelado>Caso deseje realizar a compra novamente, acesse nosso site ##URL_LOJA##</texto_email_cancelado>
+            </controle_envio_email>
+        </base>
+    </default>
+</config>
