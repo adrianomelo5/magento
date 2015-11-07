@@ -1,0 +1,35 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+h3.allpago-header { background:url(images/allpago.gif) no-repeat 0 0; background-size: 75px 14px; height:0; overflow:hidden; padding:14px 0 0; width:80px; }
+
+ul.tabs a.allpago-section,
+ul.tabs a.allpago-section:hover { background:url(images/tabs_span_bg.gif) repeat-x 0 100%; border-bottom:none; padding:0.5em 0.5em 0.28em 1.5em; }
+ul.tabs a.allpago-section:hover { background-color:#d8e6e6; }
+ul.tabs a.allpago-section.active, ul.tabs a.allpago-section.active:hover { background-color:#fff; }
+ul.tabs a.allpago-section span,
+ul.tabs a.allpago-section:hover span { background:url(images/allpago.gif) no-repeat 0 0; background-size: 70px 13px; height:0; overflow:hidden; padding:14px 0 0; width:70px; }
+
+
+.condicao_maior_select { width: 140px!important; }
+.condicao_menor_select { width: 140px!important; }

@@ -1,0 +1,198 @@
+<?php $_order = $this->getOrder(); ?>
+<?php $orderAdminDate = $this->formatDate($_order->getCreatedAtDate(), 'medium', true); ?>
+
+<div class="entry-edit" style='width: 400px;'>
+    
+    <div class="entry-edit-head">
+        <h4>Clearsale Start</h4>
+    </div>
+
+    <div class="fieldset">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="form-list">
+                <?php if($this->statusPedido()!='created'): ?>
+                
+                    <tr>
+                        <td class="label"><label><a href="javascript:carregarFrame();">Consultar análise</a></label></td>
+                        <td></td>
+                    </tr>                    
+                    <tr>
+                        <td class="value" colspan="2">
+                            <?php
+                            $endereco = $_order->getBillingAddress()->getStreet(1);
+                            $separado = explode(",", $endereco, 2);
+                            if (count($separado) != 2) {
+                                $rua_cobranca = trim($_order->getBillingAddress()->getStreet(1));
+                                $numero_cobranca = trim($_order->getBillingAddress()->getStreet(2));
+                                $complemento_cobranca = trim($_order->getBillingAddress()->getStreet(3));
+                                $bairro_cobranca = trim($_order->getBillingAddress()->getStreet(4));
+                            } else {
+                                $rua_cobranca = trim($separado[0]);
+                                $resto = trim($separado[1]);
+                                if (strpos($resto, ",")) {
+                                    $array = explode(",", $resto, 2);
+                                    $numero_cobranca = $array[0];
+                                    $complemento_cobranca = $array[1];
+                                } else if (strpos($resto, " ")) {
+                                    $array = explode(" ", $resto, 2);
+                                    $numero_cobranca = $array[0];
+                                    $complemento_cobranca = $array[1];
+                                } else {
+                                    $numero_cobranca = $resto;
+                                }
+                                $complemento_cobranca .= " " . $_order->getBillingAddress()->getStreet(2);
+                            }
+
+                            $endereco = $_order->getShippingAddress()->getStreet(1);
+                            $separado = explode(",", $endereco, 2);
+                            if (count($separado) != 2) {
+                                $rua_entrega = trim($_order->getShippingAddress()->getStreet(1));
+                                $numero_entrega = trim($_order->getShippingAddress()->getStreet(2));
+                                $complemento_entrega = trim($_order->getShippingAddress()->getStreet(3));
+                                $bairro_entrega = trim($_order->getShippingAddress()->getStreet(4));
+                            } else {
+                                $rua_entrega = trim($separado[0]);
+                                $resto = trim($separado[1]);
+                                if (strpos($resto, ",")) {
+                                    $array = explode(",", $resto, 2);
+                                    $numero_entrega = $array[0];
+                                    $complemento_entrega = $array[1];
+                                } else if (strpos($resto, " ")) {
+                                    $array = explode(" ", $resto, 2);
+                                    $numero_entrega = $array[0];
+                                    $complemento_entrega = $array[1];
+                                } else {
+                                    $numero_entrega = $resto;
+                                }
+                                $complemento_entrega .= " " . $_order->getShippingAddress()->getStreet(2);
+                            }
+
+                            //Padrão (xx) xxxxxxxx
+                            $telefone_ddd = str_replace(' ', '', preg_replace('/[()-]*/', '', $_order->getShippingAddress()->getTelephone()));
+                            $ddd_tel = substr($telefone_ddd, 0, 2);
+                            $telefone = substr($telefone_ddd, 2, strlen($telefone_ddd)); 
+
+                            $celular_ddd = str_replace(' ', '', preg_replace('/[()-]*/', '', $_order->getShippingAddress()->getCelular()));
+                            $ddd_cel = substr($celular_ddd, 0, 2);
+                            $celular = substr($celular_ddd, 2, strlen($celular_ddd)); 
+
+
+                            $total = number_format($_order->getBaseGrandTotal(), 2, ".", "");
+
+                            //Tipo de pagamento:			
+                            $metodoPagamento = $_order->getPayment()->getMethod();
+                            switch ($metodoPagamento) {
+                                case "gwap_cc":
+                                    $cartao = Mage::helper('clearsale')->getCardType($_order->getPayment()->getCcType());
+                                    $last4 = $_order->getPayment()->getCcLast4();
+                                    $tipoPagamento = "TipoPagamento=1&TipoCartao=$cartao&Cartao_Fim=$last4&";
+                                    break;
+                                case "gwap_2cc":
+                                    $cartao = Mage::helper('clearsale')->getCardType($_order->getPayment()->getCcType());
+                                    $last4 = $_order->getPayment()->getCcLast4();
+                                    $tipoPagamento = "TipoPagamento=1&TipoCartao=$cartao&Cartao_Fim=$last4&";
+
+                                    $cartao2 = Mage::helper('clearsale')->getCardType($_order->getPayment()->getAdditionalInformation('gwapCcType2'));
+                                    $last4_2 = $_order->getPayment()->getAdditionalInformation('gwapCcLast4_2');
+                                    $tipoPagamento2 = "TipoPagamento=1&TipoCartao=$cartao2&Cartao_Fim=$last4_2&";                                    
+                                    break;
+                                default:
+                                break;
+                            }
+
+                            $items = Mage::helper('clearsale')->getOrderItems($_order);
+                            $cont = 1;
+                            $DADOS_ITEMS = '';
+                            foreach($items as $item){
+                                $DADOS_ITEMS .= '&Item_ID_'.$cont.'='.$item['ID'].'&Item_Nome_'.$cont.'='.$item['Name'].'&Item_Qtd_'.$cont.'='.$item['Qty'].'&Item_Valor_'.$cont.'='.$item['ItemValue'];
+                            }
+
+                            $codigoIntegracao = Mage::getStoreConfig('allpago/clearsale/ws_key');
+
+                            $ambiente = Mage::getStoreConfig('allpago/clearsale/ambiente');
+                            if ($ambiente == "producao"){
+                                $url = "https://www.clearsale.com.br/start/Entrada/EnviarPedido.aspx";
+                            }else{
++                                $url = "https://homologacao.clearsale.com.br/start/Entrada/EnviarPedido.aspx";
+                            }
+
+                            if ($codigoIntegracao == false) {
+                                echo "<b>Código de Integração da Clearsale não configurado!</b><br/>Por favor configure-o em Sistema -> Configurações -> Gateway.";
+                            } else {
+                                if($metodoPagamento=='gwap_2cc'){
+                                ?> 
+                                    <script>
+                                        function carregarFrame() {
+                                            var iframe = document.getElementById("clearsale1");
+                                            iframe.src = "<?php echo $url; ?>?CodigoIntegracao=<?php echo $codigoIntegracao; ?>&PedidoID=<?php echo $_order->getRealOrderId(); ?>&Data=<?php echo $orderAdminDate; ?>&IP=<?php echo $_order->getRemoteIp(); ?>&Total=<?php echo $total ?>&<?php echo $tipoPagamento; ?>Cobranca_Nome=<?php echo $_order->getCustomerName() ?>&Cobranca_Email=<?php echo $_order->getCustomerEmail() ?>&Cobranca_Documento=<?php echo $_order->getCustomerTaxvat() ?>&Cobranca_Logradouro=<?php echo $rua_cobranca ?>&Cobranca_Logradouro_Numero=<?php echo $numero_cobranca ?>&Cobranca_Logradouro_Complemento=<?php echo $complemento_cobranca ?>&Cobranca_Bairro=<?php echo $bairro_cobranca ?>&Cobranca_Cidade=<?php echo $_order->getBillingAddress()->getData('city') ?>&Cobranca_Estado=<?php echo $_order->getBillingAddress()->getData('region') ?>&Cobranca_CEP=<?php echo $_order->getBillingAddress()->getData('postcode') ?>&Cobranca_Pais=<?php echo $_order->getBillingAddress()->getData('country_id') ?>&Cobranca_DDD_Telefone=<?php echo $ddd_tel ?>&Cobranca_Telefone=<?php echo $telefone ?>&Cobranca_DDD_Celular=<?php echo $ddd_cel ?>&Cobranca_Celular=<?php echo $celular ?>&Entrega_Nome=<?php echo $_order->getCustomerName() ?>&Entrega_Email=<?php echo $_order->getCustomerEmail() ?>&Entrega_Documento=<?php echo $_order->getCustomerTaxvat() ?>&Entrega_Logradouro=<?php echo $rua_entrega ?>&Entrega_Logradouro_Numero=<?php echo $numero_entrega ?>&Entrega_Logradouro_Complemento=<?php echo $complemento_entrega ?>&Entrega_Bairro=<?php echo $bairro_entrega ?>&Entrega_Cidade=<?php echo $_order->getShippingAddress()->getData('city') ?>&Entrega_Estado=<?php echo $_order->getShippingAddress()->getData('region') ?>&Entrega_CEP=<?php echo $_order->getShippingAddress()->getData('postcode') ?>&Entrega_Pais=<?php echo $_order->getShippingAddress()->getData('country_id') ?>&Entrega_DDD_Telefone=<?php echo $ddd_tel ?>&Entrega_Telefone=<?php echo $telefone.$DADOS_ITEMS ?>";
+                                            var iframe = document.getElementById("clearsale2");
+                                            iframe.src = "<?php echo $url; ?>?CodigoIntegracao=<?php echo $codigoIntegracao; ?>&PedidoID=<?php echo $_order->getRealOrderId(); ?>&Data=<?php echo $orderAdminDate; ?>&IP=<?php echo $_order->getRemoteIp(); ?>&Total=<?php echo $total ?>&<?php echo $tipoPagamento2; ?>Cobranca_Nome=<?php echo $_order->getCustomerName() ?>&Cobranca_Email=<?php echo $_order->getCustomerEmail() ?>&Cobranca_Documento=<?php echo $_order->getCustomerTaxvat() ?>&Cobranca_Logradouro=<?php echo $rua_cobranca ?>&Cobranca_Logradouro_Numero=<?php echo $numero_cobranca ?>&Cobranca_Logradouro_Complemento=<?php echo $complemento_cobranca ?>&Cobranca_Bairro=<?php echo $bairro_cobranca ?>&Cobranca_Cidade=<?php echo $_order->getBillingAddress()->getData('city') ?>&Cobranca_Estado=<?php echo $_order->getBillingAddress()->getData('region') ?>&Cobranca_CEP=<?php echo $_order->getBillingAddress()->getData('postcode') ?>&Cobranca_Pais=<?php echo $_order->getBillingAddress()->getData('country_id') ?>&Cobranca_DDD_Telefone=<?php echo $ddd_tel ?>&Cobranca_Telefone=<?php echo $telefone ?>&Cobranca_DDD_Celular=<?php echo $ddd_cel ?>&Cobranca_Celular=<?php echo $celular ?>&Entrega_Nome=<?php echo $_order->getCustomerName() ?>&Entrega_Email=<?php echo $_order->getCustomerEmail() ?>&Entrega_Documento=<?php echo $_order->getCustomerTaxvat() ?>&Entrega_Logradouro=<?php echo $rua_entrega ?>&Entrega_Logradouro_Numero=<?php echo $numero_entrega ?>&Entrega_Logradouro_Complemento=<?php echo $complemento_entrega ?>&Entrega_Bairro=<?php echo $bairro_entrega ?>&Entrega_Cidade=<?php echo $_order->getShippingAddress()->getData('city') ?>&Entrega_Estado=<?php echo $_order->getShippingAddress()->getData('region') ?>&Entrega_CEP=<?php echo $_order->getShippingAddress()->getData('postcode') ?>&Entrega_Pais=<?php echo $_order->getShippingAddress()->getData('country_id') ?>&Entrega_DDD_Telefone=<?php echo $ddd_tel ?>&Entrega_Telefone=<?php echo $telefone.$DADOS_ITEMS ?>";                                            
+                                        }
+                                    </script>
+                                    <iframe id="clearsale1" src="" width="280" height="85" frameborder="0" scrolling="no"><P>Seu Browser não suporta iframes</P></iframe>
+                                    <iframe id="clearsale2" src="" width="280" height="85" frameborder="0" scrolling="no"><P>Seu Browser não suporta iframes</P></iframe>                            
+                            <?php }else{ ?>
+                                    <script>
+                                        function carregarFrame() {
+                                            var iframe = document.getElementById("clearsale");
+                                            iframe.src = "<?php echo $url; ?>?CodigoIntegracao=<?php echo $codigoIntegracao; ?>&PedidoID=<?php echo $_order->getRealOrderId(); ?>&Data=<?php echo $orderAdminDate; ?>&IP=<?php echo $_order->getRemoteIp(); ?>&Total=<?php echo $total ?>&<?php echo $tipoPagamento; ?>Cobranca_Nome=<?php echo $_order->getCustomerName() ?>&Cobranca_Email=<?php echo $_order->getCustomerEmail() ?>&Cobranca_Documento=<?php echo $_order->getCustomerTaxvat() ?>&Cobranca_Logradouro=<?php echo $rua_cobranca ?>&Cobranca_Logradouro_Numero=<?php echo $numero_cobranca ?>&Cobranca_Logradouro_Complemento=<?php echo $complemento_cobranca ?>&Cobranca_Bairro=<?php echo $bairro_cobranca ?>&Cobranca_Cidade=<?php echo $_order->getBillingAddress()->getData('city') ?>&Cobranca_Estado=<?php echo $_order->getBillingAddress()->getData('region') ?>&Cobranca_CEP=<?php echo $_order->getBillingAddress()->getData('postcode') ?>&Cobranca_Pais=<?php echo $_order->getBillingAddress()->getData('country_id') ?>&Cobranca_DDD_Telefone=<?php echo $ddd_tel ?>&Cobranca_Telefone=<?php echo $telefone ?>&Cobranca_DDD_Celular=<?php echo $ddd_cel ?>&Cobranca_Celular=<?php echo $celular ?>&Entrega_Nome=<?php echo $_order->getCustomerName() ?>&Entrega_Email=<?php echo $_order->getCustomerEmail() ?>&Entrega_Documento=<?php echo $_order->getCustomerTaxvat() ?>&Entrega_Logradouro=<?php echo $rua_entrega ?>&Entrega_Logradouro_Numero=<?php echo $numero_entrega ?>&Entrega_Logradouro_Complemento=<?php echo $complemento_entrega ?>&Entrega_Bairro=<?php echo $bairro_entrega ?>&Entrega_Cidade=<?php echo $_order->getShippingAddress()->getData('city') ?>&Entrega_Estado=<?php echo $_order->getShippingAddress()->getData('region') ?>&Entrega_CEP=<?php echo $_order->getShippingAddress()->getData('postcode') ?>&Entrega_Pais=<?php echo $_order->getShippingAddress()->getData('country_id') ?>&Entrega_DDD_Telefone=<?php echo $ddd_tel ?>&Entrega_Telefone=<?php echo $telefone.$DADOS_ITEMS ?>";
+                                        }
+                                    </script>
+                                    <iframe id="clearsale" src="" width="280" height="85" frameborder="0" scrolling="no"><P>Seu Browser não suporta iframes</P></iframe>
+                                    <!--script type="text/javascript">carregarFrame();</script-->
+                            <?php }
+                            }?>
+                        </td>
+                        <?php
+                            //                        echo 'codigoIntegracao: ' . $codigoIntegracao . '<br/>';
+                            //                        echo 'PedidoID: ' . $_order->getRealOrderId() . '<br/>';
+                            //                        echo 'Data: ' . $orderAdminDate . '<br/>';
+                            //                        echo 'Ip: ' . $_order->getRemoteIp() . '<br/>';
+                            //                        echo 'Total: ' . $total . '<br/>';
+                            //                        echo 'TipoPagamento: ' . $tipoPagamento . '<br/>';
+                            //                        echo 'Cobranca_Nome: ' . $_order->getCustomerName() . '<br/>';
+                            //                        echo 'Cobranca_Email: ' . $_order->getCustomerEmail() . '<br/>';
+                            //                        echo 'Cobranca_Documento: ' . $_order->getCustomerTaxvat() . '<br/>';
+                            //                        echo 'Cobranca_Logradouro: ' . $rua_cobranca . '<br/>';
+                            //                        echo 'Cobranca_Logradouro_Numero: ' . $numero_cobranca . '<br/>';
+                            //                        echo 'Cobranca_Logradouro_Complemento: ' . $complemento_cobranca . '<br/>';
+                            //                        echo 'Cobranca_Bairro: ' . $bairro_cobranca . '<br/>';
+                            //                        echo 'Cobranca_Cidade: ' . $_order->getBillingAddress()->getData('city') . '<br/>';
+                            //                        echo 'Cobranca_Estado: ' . $_order->getBillingAddress()->getData('region') . '<br/>';
+                            //                        echo 'Cobranca_CEP: ' . $_order->getBillingAddress()->getData('postcode') . '<br/>';
+                            //                        echo 'Cobranca_Pais: ' . $_order->getBillingAddress()->getData('country_id') . '<br/>';
+                            //                        echo 'Cobranca_DDD_Telefone: ' . $ddd_tel . '<br/>';
+                            //                        echo 'Cobranca_Telefone: ' . $telefone . '<br/>';
+                            //                        echo 'Cobranca_DDD_Celular: ' . $ddd_cel . '<br/>';
+                            //                        echo 'Cobranca_Celular: ' . $celular . '<br/>';                                               
+                            //                        echo 'Entrega_Nome: ' . $_order->getCustomerName() . '<br/>';
+                            //                        echo 'Entrega_Email: ' . $_order->getCustomerEmail() . '<br/>';
+                            //                        echo 'Entrega_Documento: ' . $_order->getCustomerTaxvat() . '<br/>';
+                            //                        echo 'Entrega_Logradouro: ' . $rua_entrega . '<br/>';
+                            //                        echo 'Entrega_Logradouro_Numero: ' . $numero_entrega . '<br/>';
+                            //                        echo 'Entrega_Logradouro_Complemento: ' . $complemento_entrega . '<br/>';
+                            //                        echo 'Entrega_Bairro: ' . $bairro_entrega . '<br/>';
+                            //                        echo 'Entrega_Cidade: ' . $_order->getShippingAddress()->getData('city') . '<br/>';
+                            //                        echo 'Entrega_Estado: ' . $_order->getShippingAddress()->getData('region') . '<br/>';
+                            //                        echo 'Entrega_CEP: ' . $_order->getShippingAddress()->getData('postcode') . '<br/>';
+                            //                        echo 'Entrega_Pais: ' . $_order->getShippingAddress()->getData('country_id') . '<br/>';
+                            //                        echo 'Entrega_DDD_Telefone: ' . $ddd_tel . '<br/>';
+                            //                        echo 'Entrega_Telefone: ' . $telefone . '<br/>';
+                            //                        echo 'Items: ' . $DADOS_ITEMS . '<br/>';
+                        ?>                    
+                    </tr>                 
+                
+                <?php else: ?>                
+                    <tr>
+                        <td class="label"><label>Pedido já processado.</label></td>
+                        <td></td>
+                    </tr>                
+                <?php endif; ?>
+                                   
+            </table>    
+        </div>
+    </div>
+    
+</div>
+<div class="clear"></div>
+<br />

@@ -1,0 +1,58 @@
+<?php
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+$historyLogs = $this->getLog();
+
+?>
+<?php if ($this->getOrder() && $historyLogs): ?>
+<div>
+    <div id="order-messages">
+        <?php echo $this->getChildHtml('order_messages') ?>
+    </div>
+</div>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4><?php echo Mage::helper('sales')->__('+ Conversão History') ?></h4>
+    </div>
+
+    <div class="grid np">
+        <table cellspacing="0" class="data order-tables">
+            <tr>
+                <?php $lastStatus = $this->getLog()->getFirstItem(); ?>
+                <td style="width: 100%; padding-top: 5px; padding-bottom: 5px; text-align: center; font-size: 16px;"> <?php echo ($lastStatus->getStatus()) ? '<strong>Status:</strong>' . $lastStatus->getRobot() . ' ' . $lastStatus->getStatus() : ''; ?></td>
+            </tr>
+        </table>
+        <table cellspacing="0" class="data order-tables">
+            <thead>
+                <tr class="headings">
+                    <th style="width: 10%;">Data/Hora</th>
+                    <th style="width: 10%;">Robô</th>
+                    <th style="width: 7%;">Método</th>
+                    <th style="width: 10%;">Status</th>
+                    <th style="width: 25%;">Mensagem</th>
+                    <th style="width: 38%;">Retorno Gateway</th>
+                </tr>
+            </thead>
+            <tbody class="even">
+               
+                <?php foreach ($historyLogs as $historyLog): ?>
+                    <tr class="border">
+                        <td class="a-center"><?php echo date('d/m/Y', strtotime($historyLog->getDatetime())) . '<br />' . date('H:i:s', strtotime($historyLog->getDatetime())); ?></td>
+                        <td><?php echo $historyLog->getRobot(); ?></td>
+                        <td><?php echo $historyLog->getMethod(); ?></td>
+                        <td><?php echo $historyLog->getStatus(); ?></td>
+                        <td><?php echo $historyLog->getMessage(); ?></td>
+                        <td><?php echo $historyLog->getMessageGateway(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="clear"></div>
+<br />
+<?php endif;?>

@@ -1,0 +1,120 @@
+.payment-option-gwap_boleto{
+    height: 47px;
+    padding: 3px;
+    
+}
+.retorno{
+    font-size:14px;
+}
+.payment-option-gwap_boleto input{
+    position:absolute;
+    left:-9999px;
+}
+.payment-option-gwap_boleto.selected{
+    background-color: #F0F0F0;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.payment-option-gwap_cc{
+    height: 47px;
+    padding: 3px;   
+}
+.payment-option-gwap_2cc{
+    height: 47px;
+    padding: 3px;   
+}
+.payment-option-gwap_2cc2{
+    height: 47px;
+    padding: 3px;   
+}
+
+.payment-option-gwap_cc input{
+    position:absolute;
+    left:-9999px;
+}
+.payment-option-gwap_2cc input{
+    position:absolute;
+    left:-9999px;
+}
+.payment-option-gwap_2cc2 input{
+    position:absolute;
+    left:-9999px;
+}
+
+.payment-option-gwap_cc label{
+    cursor: pointer;    
+}
+.payment-option-gwap_2cc label{
+    cursor: pointer;    
+}
+.payment-option-gwap_2cc2 label{
+    cursor: pointer;    
+}
+
+.sp-methods label {cursor: pointer;}
+
+.payment-option-gwap_cc.selected{
+    background-color: #F0F0F0;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.payment-option-gwap_2cc.selected{
+    background-color: #F0F0F0;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.payment-option-gwap_2cc2.selected{
+    background-color: #F0F0F0;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.page .form-list select{
+    width: 125px;
+}
+
+.advancedinstallments{
+    margin-bottom:10px;
+    border-bottom: 1px dotted #000000;
+    padding-bottom: 15px;
+}
+#gwap_cc_cc_type_cvv_div input.input-text {
+    width: 60px;
+}
+#gwap_2cc_type_cvv_div input.input-text {
+    width: 60px;
+}
+#gwap_2cc_type_cvv_div2 input.input-text {
+    width: 60px;
+}
+
+.advancedinstallments-parcelas-gwap_cc select{
+    width: 165px !important;
+}
+.advancedinstallments-parcelas-gwap_2cc select{
+    width: 165px !important;
+}
+.advancedinstallments-parcelas-gwap_oneclick select{
+    width: 165px !important;
+}
+
+#gwap_2cc_amount{
+    width: 120px!important;
+}
+#gwap_2cc_amount2{
+    width: 120px!important;
+    background-color: #ddd;
+}
+
+#gwap_cc_check_oneclick{float: left;margin-right: 5px;}
+
+.failure{height: 300px;}
+.failure li{font-size: 15px;text-align: center;padding-top: 50px;}

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    
+    <checkout_onepage_index translate="label">
+        <reference name="content">
+            <block type="clearsale/sessionid" name="checkout.clearsale.tracking" template="allpago_clearsale/clearsaleprofiling.phtml"/>
+        </reference>
+    </checkout_onepage_index>
+            
+    <onestepcheckout_index_index>
+        <reference name="content">
+            <block type="clearsale/sessionid" name="checkout.clearsale.tracking" template="allpago_clearsale/clearsaleprofiling.phtml"/>
+        </reference>        
+    </onestepcheckout_index_index>    
+
+    <onepagecheckout_index_index translate="label">
+        <reference name="content">
+            <block type="clearsale/sessionid" name="checkout.clearsale.tracking" template="allpago_clearsale/clearsaleprofiling.phtml"/>
+        </reference>         
+    </onepagecheckout_index_index>   
+    
+</layout>

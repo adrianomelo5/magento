@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>base/css/styles.css?1.16.2</stylesheet>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/ideasa.js?1.16.2</name>
+            </action>
+        </reference>
+    </default>
+    
+    <checkout_onepage_success>
+        <reference name="head">
+        </reference>
+        
+        <reference name="checkout.success">
+            <block type="base/checkout_onepage_success" name="success.details" />
+        </reference>
+    </checkout_onepage_success>
+</layout>

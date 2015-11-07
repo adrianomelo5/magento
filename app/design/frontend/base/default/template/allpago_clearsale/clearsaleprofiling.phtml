@@ -1,0 +1,16 @@
+<?php if(Mage::getStoreConfig('allpago/clearsale/active') && Mage::getStoreConfig('allpago/clearsale/produto') != 'start'): ?>
+    <?php $sessionId = $this->createRandomVal(); ?>
+    <!-- Início das tags de profiling Clearsale--> 
+    <p style="background:url(https://h.onlinemetrix.net/fp/clear.png?org_id=k6dvnkdk&amp;session_id=<?php echo $sessionId ?>&amp;m=1)"> 
+    </p> 
+    <img src="https://h.onlinemetrix.net/fp/clear.png?org_id=k6dvnkdk&amp;session_id=<?php echo $sessionId ?>&amp;m=2" 
+    alt="" > 
+    <script src="https://h.onlinemetrix.net/fp/check.js?org_id=k6dvnkdk&amp;session_id=<?php echo $sessionId ?>" 
+    type="text/javascript"> 
+    </script> 
+    <object type="application/x-shockwave-flash" data="https://h.onlinemetrix.net/fp/fp.swf?org_id=k6dvnkdk&amp;session_id=<?php echo $sessionId ?>" width="1" 
+    height="1" id="obj_id"> 
+    <param name="movie" value="https://h.onlinemetrix.net/fp/fp.swf?org_id=k6dvnkdk&amp;session_id=<?php echo $sessionId ?>" /> 
+    </object> 
+    <!-- Fim das tags de profiling Clearsale-->
+<?php endif; ?>

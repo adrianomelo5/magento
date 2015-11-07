@@ -1,0 +1,30 @@
+<?php die('motherfucker'); 
+$_product = $this->getProduct();
+$preco = $_product->getPrice();
+$quantidade_parcelas = Mage::getStoreConfig('parcelamento/parcelamento_general/parcelamento_xparcelas');
+$desconto = Mage::getStoreConfig('parcelamento/parcelamento_general/parcelamento_desconto');
+$valor_parcela = number_format($preco/$quantidade_parcelas,2,',','.');
+$preco_avista = ($preco/100)*(100-$desconto);
+echo '<div id="parcelamento">R$ '.number_format($preco,2,',','.').' em até '.$quantidade_parcelas.'x de R$ '.$valor_parcela.' no cartão <br/>R$ '.number_format($preco_avista,2,',','.').' à vista com '.$desconto.'% de desconto</div>';
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+var $j = jQuery.noConflict();
+$j(document).ready(function(){
+$j(".input-box select").change(function(){
+    
+    alert('tessste')
+$j('#parcelamento').html('<img src="<?php echo $this->getSkinUrl('images/newer7_parcelamento/ajax-loader.gif'); ?>"> Carregando');
+$j.ajax({
+url: '<?php echo $this->getUrl("parcelamento")?>',
+type:"POST",
+data:({"preco": $j('.price-box span span.price').html()}),
+success: function(data) {
+$j('#parcelamento').html(data);
+}
+})
+})
+})
+//]]>
+</script>

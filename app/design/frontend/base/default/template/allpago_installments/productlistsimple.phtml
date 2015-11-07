@@ -1,0 +1,8 @@
+<?php if ($this->isActive()): ?>
+        <?php $installment = $this->getInstallmentHighest(); ?>
+        <p class="msg-parcelamento">
+        <?php printf('Em até  <span class = "em-ate-content">%s</span>', $this->__($installment->getValue().' x '. $installment->getInstallment() . ' ' . $installment->getMessage() )  ); ?>
+        </p>
+<?php endif; ?>
+
+

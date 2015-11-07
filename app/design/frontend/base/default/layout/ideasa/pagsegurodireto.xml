@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <idecheckoutvm_index_index translate="label">
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/checkout.js?1.1.1</name>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>
+    </idecheckoutvm_index_index>
+    
+    <onepagecheckout_index_index translate="label">
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/checkout.js?1.1.1</name>
+            </action>
+             <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/prototype/maskedinput.js?1.1.1</name>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>
+    </onepagecheckout_index_index>
+    
+    <onestepcheckout_index_index translate="label">
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/checkout.js?1.1.1</name>
+            </action>
+             <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/prototype/maskedinput.js?1.1.1</name>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>
+    </onestepcheckout_index_index>
+    
+    <checkoutsimplificado_index_index translate="label">
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/checkout.js?1.1.1</name>
+            </action>
+             <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/prototype/maskedinput.js?1.1.1</name>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>
+    </checkoutsimplificado_index_index>
+    
+    <checkout_onepage_index translate="label">
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/checkout.js?1.1.1</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/prototype/maskedinput.js?1.1.1</name>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>    
+    </checkout_onepage_index>
+
+    <pagsegurodireto_payment_transferencia translate="label">
+        <reference name="head">
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/lib/ideasa.js?1.1.1</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>ideasa/pagsegurodireto/frontend/payment/transferencia/index.js?1.1.1</name>
+            </action>
+        </reference>    
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="pagsegurodireto/payment_transferencia" name="transferencia.index" template="ideasa/pagsegurodireto/payment/transferencia/index.phtml" />
+        </reference>
+    </pagsegurodireto_payment_transferencia>
+</layout>

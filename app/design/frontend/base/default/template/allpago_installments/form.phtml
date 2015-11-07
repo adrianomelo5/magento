@@ -1,0 +1,257 @@
+<?php if ($this->isActive()): ?>
+    <?php if ($this->getFormType()): ?>
+        <?php $_installmentCode = $this->getPaymentInstallmentCode(); ?>
+        <?php $form = $this->getPaymentFormBlock(); ?>
+        <?php $_code = $this->getPaymentCode(); ?>
+
+        <div class="advancedinstallments">
+            <?php ?>
+            <label class="required"><em>*</em><?php echo $this->__('Número de parcelas') ?></label>
+            <div style="clear:both"></div>
+            <div class="advancedinstallments-parcelas-<?php echo $this->getPaymentCode(); ?>">
+                <?php foreach ($this->getInstallments(true) as $installment): ?>
+                    <input
+                        type="radio"
+                        id="<?php echo $this->getPaymentCode(); ?>_<?php echo $this->getPaymentInstallmentCode(); ?>"
+                        name="payment[<?php echo $this->getPaymentCode(); ?>_<?php echo $this->getPaymentInstallmentCode(); ?>]"
+                        value="<?php echo $installment->getValue(); ?>"
+                        <?php echo $installment->getExtraParams(); ?>
+                        />
+                        <?php echo $installment->getValue() . ' x ' . $installment->getInstallment() . ' ' . $installment->getMessage(); ?>
+                    <br />
+                <?php endforeach; ?>
+            </div>
+            <?php ?>
+        </div>
+
+        <?php if ($this->isOnestepActive()): ?>
+            <script type="text/javascript">
+                function get_separate_save_methods_function(url, update_payments)
+                {
+                    if (typeof update_payments == 'undefined') {
+                        var update_payments = false;
+                    }
+
+                    return function(e) {
+                        if (typeof e != 'undefined') {
+                            var element = e.element();
+
+                            if (element.name != 'shipping_method') {
+                                update_payments = false;
+                            }
+                        }
+
+                        var form = $('onestepcheckout-form');
+                        var shipping_method = $RF(form, 'shipping_method');
+                        var payment_method = $RF(form, 'payment[method]');
+                        var totals = get_totals_element();
+
+                        var freeMethod = $('p_method_free');
+                        if (freeMethod) {
+                            payment.reloadcallback = true;
+                            payment.countreload = 1;
+                        }
+
+                        totals.update('<div class="loading-ajax">&nbsp;</div>');
+
+                        if (update_payments) {
+                            var payment_methods = $$('div.payment-methods')[0];
+                            payment_methods.update('<div class="loading-ajax">&nbsp;</div>');
+                        }
+
+                        var parameters = {
+                            shipping_method: shipping_method,
+                            payment_method: payment_method
+                        }
+
+                        /* Find payment parameters and include */
+                        var items = $$('input[name^=payment]').concat($$('select[name^=payment]'));
+                        var names = items.pluck('name');
+                        var values = items.pluck('value');
+
+                        for (var x = 0; x < names.length; x++) {
+                            if (names[x] != 'payment[method]' && items[x].type != 'radio') {
+                                parameters[names[x]] = values[x];
+                            }
+                            if (items[x].type == 'radio' && items[x].checked) {
+                                parameters[names[x]] = values[x];
+                            }
+                        }
+
+                        new Ajax.Request(url, {
+                            method: 'post',
+                            onSuccess: function(transport) {
+                                if (transport.status == 200) {
+                                    var data = transport.responseText.evalJSON();
+                                    var form = $('onestepcheckout-form');
+
+                                    totals.update(data.summary);
+
+                                    if (update_payments) {
+
+                                        payment_methods.replace(data.payment_method);
+
+                                        $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', get_separate_save_methods_function(url));
+                                        $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', function() {
+                                            $$('div.onestepcheckout-payment-method-error').each(function(item) {
+                                                new Effect.Fade(item);
+                                            });
+                                        });
+
+                                        if ($RF($('onestepcheckout-form'), 'payment[method]') != null) {
+                                            try {
+                                                var payment_method = $RF(form, 'payment[method]');
+                                                $('container_payment_method_' + payment_method).show();
+                                                $('payment_form_' + payment_method).show();
+                                            } catch (err) {
+
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            parameters: parameters
+                        });
+                    }
+                }
+                var onestep_url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure' => true)); ?>'
+                $$('div.advancedinstallments-parcelas-<?php echo $_code; ?> input').invoke('observe', 'click', get_separate_save_methods_function(onestep_url));
+            </script>
+        <?php endif; ?>
+            
+        <?php if ($this->isOnepageActive()): ?>
+            <script type="text/javascript">
+                jQuery('.advancedinstallments-parcelas-<?php echo $_code; ?> select').live('change',function(){
+                    checkout.update({
+                        'review': 1
+                    })                    
+                })
+            </script>
+        <?php endif; ?>             
+
+    <?php else: ?>
+        <?php $_installmentCode = $this->getPaymentInstallmentCode(); ?>
+        <?php $form = $this->getPaymentFormBlock(); ?>
+        <?php $_code = $this->getPaymentCode(); ?>
+
+        <div class="advancedinstallments">
+            <?php ?>
+            <label class="required"><em>*</em><?php echo $this->__('Número de parcelas:*') ?></label>
+            <div style="clear:both"></div>
+            <div class="advancedinstallments-parcelas-<?php echo $this->getPaymentCode(); ?>">
+                <select id="select-parcelamento-<?php echo $this->getPaymentCode(); ?>" name="payment[<?php echo $this->getPaymentCode(); ?>_<?php echo $this->getPaymentInstallmentCode(); ?>]">
+                    <?php foreach ($this->getInstallments(true) as $installment): ?>
+                        <option value="<?php echo $installment->getValue(); ?>" <?php echo $installment->getExtraParams(); ?>><?php echo $installment->getValue() . ' x ' . $installment->getInstallment() . ' ' . $installment->getMessage(); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <?php ?>
+        </div>
+        <?php if ($this->isOnestepActive()): ?>
+            <script type="text/javascript">
+                function get_separate_save_methods_function(url, update_payments)
+                {
+                    if (typeof update_payments == 'undefined') {
+                        var update_payments = false;
+                    }
+
+                    return function(e) {
+                        if (typeof e != 'undefined') {
+                            var element = e.element();
+
+                            if (element.name != 'shipping_method') {
+                                update_payments = false;
+                            }
+                        }
+
+                        var form = $('onestepcheckout-form');
+                        var shipping_method = $RF(form, 'shipping_method');
+                        var payment_method = $RF(form, 'payment[method]');
+                        var totals = get_totals_element();
+
+                        var freeMethod = $('p_method_free');
+                        if (freeMethod) {
+                            payment.reloadcallback = true;
+                            payment.countreload = 1;
+                        }
+
+                        totals.update('<div class="loading-ajax">&nbsp;</div>');
+
+                        if (update_payments) {
+                            var payment_methods = $$('div.payment-methods')[0];
+                            payment_methods.update('<div class="loading-ajax">&nbsp;</div>');
+                        }
+
+                        var parameters = {
+                            shipping_method: shipping_method,
+                            payment_method: payment_method
+                        }
+
+                        /* Find payment parameters and include */
+                        var items = $$('input[name^=payment]').concat($$('select[name^=payment]'));
+                        var names = items.pluck('name');
+                        var values = items.pluck('value');
+
+                        for (var x = 0; x < names.length; x++) {
+                            if (names[x] != 'payment[method]' && items[x].type != 'radio') {
+                                parameters[names[x]] = values[x];
+                            }
+                            if (items[x].type == 'radio' && items[x].checked) {
+                                parameters[names[x]] = values[x];
+                            }
+                        }
+
+                        new Ajax.Request(url, {
+                            method: 'post',
+                            onSuccess: function(transport) {
+                                if (transport.status == 200) {
+                                    var data = transport.responseText.evalJSON();
+                                    var form = $('onestepcheckout-form');
+
+                                    totals.update(data.summary);
+
+                                    if (update_payments) {
+
+                                        payment_methods.replace(data.payment_method);
+
+                                        $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', get_separate_save_methods_function(url));
+                                        $$('div.payment-methods input[name^=payment\[method\]]').invoke('observe', 'click', function() {
+                                            $$('div.onestepcheckout-payment-method-error').each(function(item) {
+                                                new Effect.Fade(item);
+                                            });
+                                        });
+
+                                        if ($RF($('onestepcheckout-form'), 'payment[method]') != null) {
+                                            try {
+                                                var payment_method = $RF(form, 'payment[method]');
+                                                $('container_payment_method_' + payment_method).show();
+                                                $('payment_form_' + payment_method).show();
+                                            } catch (err) {
+
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            parameters: parameters
+                        });
+                    }
+                }
+                onestep_url = '<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure' => true)); ?>'
+                $$('div.advancedinstallments-parcelas-<?php echo $_code; ?> select').invoke('observe', 'change', get_separate_save_methods_function(onestep_url));
+            </script>
+        <?php endif; ?> 
+
+        <?php if ($this->isOnepageActive()): ?>
+            <script type="text/javascript">
+                jQuery('.advancedinstallments-parcelas-<?php echo $_code; ?> select').change(function(){
+                    checkout.update({
+                        'review': 1
+                    })                    
+                })
+            </script>
+        <?php endif; ?> 
+
+    <?php endif; ?>
+
+<?php endif; ?>
